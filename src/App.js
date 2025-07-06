@@ -123,8 +123,21 @@ function App() {
       </header>
 
       <main className="container">
-        <CityDashboard onSelectCity={handleSelectCity} />
-        <ClimateForm onSearch={handleSearch} loading={loading} ref={formRef} initialValues={initialFormValues} />
+        <div className="main-flex" style={{
+          display: 'flex',
+          gap: 32,
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          flexWrap: 'wrap',
+          marginBottom: 32
+        }}>
+          <div style={{ flex: 1, minWidth: 340, maxWidth: 420 }}>
+            <CityDashboard onSelectCity={handleSelectCity} />
+          </div>
+          <div style={{ flex: 1, minWidth: 340, maxWidth: 520 }}>
+            <ClimateForm onSearch={handleSearch} loading={loading} ref={formRef} initialValues={initialFormValues} />
+          </div>
+        </div>
 
         {loading && (
           <div className="card">
@@ -215,6 +228,12 @@ function App() {
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
+        }
+        @media (max-width: 1024px) {
+          .main-flex {
+            flex-direction: column;
+            gap: 0 !important;
+          }
         }
       `}</style>
     </div>

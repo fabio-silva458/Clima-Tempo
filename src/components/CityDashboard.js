@@ -1,4 +1,5 @@
 import React from 'react';
+import { MapPin } from 'lucide-react';
 
 const CITIES = [
   { name: 'São Paulo - SP', latitude: -23.5505, longitude: -46.6333 },
@@ -20,17 +21,27 @@ const CITIES = [
 
 const CityDashboard = ({ onSelectCity }) => {
   return (
-    <div className="card" style={{ marginBottom: 32, background: 'linear-gradient(135deg, #f8fafc 60%, #e0e7ff 100%)', boxShadow: '0 8px 32px rgba(102,126,234,0.10)' }}>
-      <h2 style={{ textAlign: 'center', color: '#fbbf24', fontWeight: 800, fontSize: 28, marginBottom: 8, letterSpacing: 1 }}>
+    <div className="card" style={{
+      background: 'rgba(255,255,255,0.85)',
+      boxShadow: '0 8px 32px rgba(102,126,234,0.10)',
+      border: '1.5px solid rgba(102,126,234,0.10)',
+      borderRadius: 24,
+      padding: 32,
+      maxWidth: 900,
+      margin: '0 auto',
+      marginBottom: 32
+    }}>
+      <h2 style={{ textAlign: 'center', color: '#fbbf24', fontWeight: 800, fontSize: 28, marginBottom: 8, letterSpacing: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
+        <MapPin size={28} style={{ color: '#667eea', marginBottom: -4 }} />
         Confira a previsão de clima e tempo da semana
       </h2>
-      <p style={{ textAlign: 'center', color: '#555', fontSize: 18, marginBottom: 24 }}>
+      <p style={{ textAlign: 'center', color: '#555', fontSize: 18, marginBottom: 28 }}>
         para as principais cidades do Brasil:
       </p>
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-        gap: 16,
+        gap: 18,
         justifyItems: 'center',
         margin: '0 auto',
         maxWidth: 900
@@ -38,20 +49,21 @@ const CityDashboard = ({ onSelectCity }) => {
         {CITIES.map(city => (
           <button
             key={city.name}
-            className="btn"
+            className="btn city-btn"
             style={{
               width: '100%',
               background: 'linear-gradient(135deg, #667eea 0%, #fbbf24 100%)',
               color: '#fff',
               fontWeight: 700,
-              fontSize: 16,
+              fontSize: 18,
               marginBottom: 0,
               boxShadow: '0 2px 8px rgba(102,126,234,0.10)',
               border: 'none',
-              padding: '18px 0',
-              borderRadius: 12,
+              padding: '22px 0',
+              borderRadius: 16,
               cursor: 'pointer',
-              transition: 'transform 0.2s',
+              transition: 'background 0.3s, transform 0.2s',
+              letterSpacing: 1
             }}
             onClick={() => onSelectCity(city)}
           >
@@ -59,6 +71,13 @@ const CityDashboard = ({ onSelectCity }) => {
           </button>
         ))}
       </div>
+      <style>{`
+        .city-btn:hover:not(:disabled) {
+          background: linear-gradient(90deg, #fbbf24 0%, #667eea 100%);
+          transform: translateY(-2px) scale(1.03);
+          box-shadow: 0 8px 32px rgba(102,126,234,0.18);
+        }
+      `}</style>
     </div>
   );
 };
