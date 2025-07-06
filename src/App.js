@@ -126,16 +126,25 @@ function App() {
         <div className="main-flex" style={{
           display: 'flex',
           gap: 32,
-          alignItems: 'flex-start',
+          alignItems: 'stretch',
           justifyContent: 'center',
           flexWrap: 'wrap',
-          marginBottom: 32
+          marginBottom: 32,
+          width: '100%',
+          maxWidth: 1500,
+          marginLeft: 'auto',
+          marginRight: 'auto',
         }}>
-          <div style={{ flex: 1, minWidth: 340, maxWidth: 420 }}>
+          <div className="main-card card1" style={{ flex: 1, minWidth: 0 }}>
             <CityDashboard onSelectCity={handleSelectCity} />
           </div>
-          <div style={{ flex: 1, minWidth: 340, maxWidth: 520 }}>
+          <div className="main-card card2" style={{ flex: 1, minWidth: 0 }}>
             <ClimateForm onSearch={handleSearch} loading={loading} ref={formRef} initialValues={initialFormValues} />
+          </div>
+          <div className="main-card card3" style={{ flex: 1, minWidth: 0 }}>
+            {climateData && !loading && (
+              <ClimateResults data={climateData} searchParams={searchParams} />
+            )}
           </div>
         </div>
 
@@ -171,10 +180,6 @@ function App() {
               </p>
             </div>
           </div>
-        )}
-
-        {climateData && !loading && (
-          <ClimateResults data={climateData} searchParams={searchParams} />
         )}
 
         {/* Informações sobre a API */}
@@ -229,10 +234,67 @@ function App() {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
-        @media (max-width: 1024px) {
+        .main-flex {
+          gap: 32px !important;
+        }
+        .main-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          flex: 1 1 0;
+          min-width: 0;
+          /* Novo visual inspirado na imagem */
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border-radius: 32px;
+          box-shadow: 0 8px 32px 0 rgba(76, 110, 245, 0.18);
+          padding: 20px 12px;
+          max-width: 370px;
+          width: 100%;
+          color: #fff;
+          margin-bottom: 0;
+          border: none;
+        }
+        .main-card :global(h2),
+        .main-card :global(h3),
+        .main-card :global(label),
+        .main-card :global(p),
+        .main-card :global(span) {
+          color: #fff !important;
+        }
+        .main-card:not(:last-child) {
+          margin-right: 32px;
+        }
+        @media (max-width: 1280px) {
           .main-flex {
             flex-direction: column;
             gap: 0 !important;
+          }
+          .main-card {
+            margin-right: 0 !important;
+            margin-bottom: 24px;
+            max-width: 100%;
+          }
+        }
+        @media (max-width: 900px) {
+          .main-flex > div {
+            min-width: 100% !important;
+            max-width: 100% !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+          }
+        }
+        @media (max-width: 600px) {
+          .container {
+            padding-left: 4px !important;
+            padding-right: 4px !important;
+          }
+          .main-flex {
+            gap: 0 !important;
+          }
+          .main-card {
+            margin-bottom: 18px;
+            padding: 18px 6px;
+            border-radius: 18px;
           }
         }
       `}</style>
