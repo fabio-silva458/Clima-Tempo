@@ -10,6 +10,7 @@ Dashboard moderno em React para consulta de dados climáticos históricos e proj
 - **Estilo:** CSS-in-JS (inline + styled-jsx), design moderno com gradiente, bordas arredondadas e sombra.
 - **API:** [Open-Meteo Climate](https://open-meteo.com/en/docs/climate-api)
 - **Componentização:** Modular, com separação clara de responsabilidades.
+- **MCPs:** Model Context Protocol para integrações avançadas (PostgreSQL, Brave Search, Google Maps)
 
 ---
 
@@ -24,8 +25,11 @@ src/
     ClimateResults.js   # Exibição dos resultados e exportação CSV
   services/
     climateApi.js       # Integração com a API Open-Meteo
+    mcpService.js       # Integração com MCPs (PostgreSQL, Brave Search, Google Maps)
   assets/               # (opcional) Ícones, imagens, etc.
   styles/               # (opcional) Estilos globais
+mcp-config.js           # Configuração dos MCPs instalados
+MCP_README.md           # Documentação específica dos MCPs
 ```
 
 ---
@@ -52,6 +56,7 @@ src/
 2. Disparo de busca (`handleSearch`), que chama o serviço da API.
 3. Exibição de loading, erro ou resultados.
 4. Resultados podem ser exportados em CSV.
+5. **Novo:** Integração com MCPs para funcionalidades avançadas.
 
 ---
 
@@ -60,6 +65,26 @@ src/
 - Utiliza o serviço `climateApi.js` para requisições HTTP (Axios).
 - Valida datas, coordenadas e variáveis antes de enviar.
 - Suporta múltiplos modelos e variáveis.
+
+---
+
+## 🤖 Model Context Protocol (MCPs)
+
+O projeto agora inclui integração com MCPs para funcionalidades avançadas:
+
+### MCPs Instalados:
+- **@modelcontextprotocol/sdk** - SDK principal para MCPs
+- **@modelcontextprotocol/server-postgres** - Banco de dados PostgreSQL
+- **@modelcontextprotocol/server-brave-search** - Pesquisas web
+- **@modelcontextprotocol/server-google-maps** - Geocodificação e mapas
+
+### Funcionalidades MCP:
+- **Geocodificação:** Converter endereços em coordenadas
+- **Pesquisas:** Buscar informações climáticas complementares
+- **Armazenamento:** Salvar dados históricos no PostgreSQL
+- **Histórico:** Consultar dados climáticos anteriores
+
+Para mais detalhes, consulte o arquivo `MCP_README.md`.
 
 ---
 
@@ -77,6 +102,10 @@ src/
 - **Axios** (requisições HTTP)
 - **Lucide React** (ícones)
 - **date-fns** (manipulação de datas)
+- **@modelcontextprotocol/sdk** (MCP SDK)
+- **@modelcontextprotocol/server-postgres** (PostgreSQL MCP)
+- **@modelcontextprotocol/server-brave-search** (Brave Search MCP)
+- **@modelcontextprotocol/server-google-maps** (Google Maps MCP)
 
 Instale com:
 ```bash
@@ -96,11 +125,15 @@ npm install
    ```bash
    npm install
    ```
-3. Rode o app:
+3. Configure os MCPs (opcional):
+   - Configure PostgreSQL (veja `MCP_README.md`)
+   - Obtenha API keys para Brave Search e Google Maps
+   - Configure as chaves no arquivo `mcp-config.js`
+4. Rode o app:
    ```bash
    npm start
    ```
-4. Acesse em [http://localhost:3000](http://localhost:3000)
+5. Acesse em [http://localhost:3000](http://localhost:3000)
 
 ---
 
@@ -109,6 +142,7 @@ npm install
 - Para adicionar cidades/estados, edite o array em `CityDashboard.js`.
 - Para adicionar variáveis/modelos, edite as opções em `ClimateForm.js`.
 - Para alterar o visual, ajuste os estilos em `App.js` ou crie um arquivo de estilos global.
+- Para configurar MCPs, edite o arquivo `mcp-config.js`.
 
 ---
 
